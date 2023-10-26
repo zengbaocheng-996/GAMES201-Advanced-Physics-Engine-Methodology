@@ -13,6 +13,7 @@
    $$
 
 2. Semi-implicit Euler (aka. symplectic Euler, explicit)
+
    $$
    \begin{align}
    v_{t+1}&=v_t+\Delta{t}\frac{f_t}{m}\\
@@ -20,7 +21,7 @@
    \end{align}
    $$
 
-2. Implicit (backward Euler, middle-point, ...)
+3. Implicit (backward Euler, middle-point, ...)
 
 ### Mass-spring systems
 
