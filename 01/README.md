@@ -18,7 +18,7 @@
    \begin{align}
    v_{t+1}&=v_t+\Delta{t}\frac{f_t}{m}\\
    x_{t+1}&=x_t+\Delta{tv_{t+1}}
-   \end{align}\\
+   \end{align}
    $$
 
 3. Implicit (backward Euler, middle-point, ...)
@@ -27,10 +27,10 @@
 
 $$
 \begin{align}
-f_{ij}&=-k(||x_i-x_j||_{2}-l_{ij})(\widehat{x_i-x_j}) \\
-f_i&=\sum^{j\neq{i}}_jf_{ij} \\
-\frac{\partial{v_i}}{\partial{t}}&=\frac{1}{m_i}f_i \\
-\frac{\partial{x_i}}{\partial{t}}&=v_i \\
+f_{ij}&=-k(||x_i-x_j||_{2}-l_{ij})(\widehat{x_i-x_j})\\
+f_i&=\sum^{j\neq{i}}_jf_{ij}\\
+\frac{\partial{v_i}}{\partial{t}}&=\frac{1}{m_i}f_i\\
+\frac{\partial{x_i}}{\partial{t}}&=v_i
 \end{align}
 $$
 
