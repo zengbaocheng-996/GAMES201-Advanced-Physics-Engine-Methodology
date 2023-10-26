@@ -15,7 +15,7 @@
 2. Semi-implicit Euler (aka. symplectic Euler, explicit)
    
    $$
-   \begin{align}
+   \begin{align}\\
    v_{t+1}&=v_t+\Delta{t}\frac{f_t}{m}\\
    x_{t+1}&=x_t+\Delta{tv_{t+1}}
    \end{align}
