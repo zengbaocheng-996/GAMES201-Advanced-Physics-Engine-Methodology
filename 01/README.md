@@ -13,8 +13,6 @@
    $$
 
 2. Semi-implicit Euler (aka. symplectic Euler, explicit)
-
-
    $$
    \begin{align}
    v_{t+1}&=v_t+\Delta{t}\frac{f_t}{m}\\
