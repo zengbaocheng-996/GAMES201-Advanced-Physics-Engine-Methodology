@@ -20,7 +20,7 @@
    x_{t+1}&=x_t+\Delta{tv_{t+1}}
    \end{align}\\
    $$
-
+asdfasdfasdfasdf
 3. Implicit (backward Euler, middle-point, ...)
 
 ### Mass-spring systems
