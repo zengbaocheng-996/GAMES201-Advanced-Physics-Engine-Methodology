@@ -5,6 +5,7 @@ For each time step,
 ###### Advection: "move" the fluid field. Solve for u* using u^t
 
 Key: Use a advection scheme with low numerical viscosity (e.g., MacCormack/BFECC/Particle advection)
+
 $$
 \frac{Du}{Dt}=0,\ \ \ \frac{D\alpha}{Dt}=0
 $$
@@ -12,6 +13,7 @@ $$
 ###### Projection: make velocity field u^{t+1} divergence-free based on u*
 
 Key: Use a fast linear solver (e.g., MGPCG)
+
 $$
 \frac{\partial u}{\partial t}=-\frac{1}{\rho}\nabla p\ \ \ \ \ \ s.t.\ \ \ \ \ \ \nabla\cdot u^{t+1}=0
 $$
@@ -62,11 +64,13 @@ $$
 Time discretization with splitting: for each time step,
 
 1. Advection: "move" the fluid field. Solve u* using u^t
+
    $$
    \frac{Du}{Dt}=0,\frac{D\alpha}{Dt}=0
    $$
 
 2. External forces (optional): evaluate u\** using u*
+
    $$
    \begin{align}
    \frac{\partial{u}}{\partial{t}}=g
@@ -74,6 +78,7 @@ Time discretization with splitting: for each time step,
    $$
 
 3. Projection: make velocity field u^{t+1} divergence-free based on u\**
+
    $$
    \frac{\partial{u}}{\partial{t}}=-\frac{1}{\rho}\nabla{p}\ \ \ \ \ s.t.\ \ \ \ \nabla\cdot{u^{t+1}}=0
    $$
@@ -112,6 +117,7 @@ $$
 ### Projection
 
 Chorin-style projection
+
 $$
 \begin{align}
 u*-u&=-\Delta t
@@ -322,6 +328,7 @@ def apply_impulse(vf: ti.template(), dyef: ti.template(), imp_data: ti.types.nda
 对应 divergence pressure_jacobi subtract_gradient 三个步骤。模拟时一般将流体视为不可压缩流体，在经过 advect 和 apply_impulse 步骤后，流体的速度场处于一个不平衡的状态，即“流入 != 流出”，而 Projection 阶段的目的是重新实现“流入=流出”，即不可压缩性。
 
 计算思路：对“流入!=流出”状态的流体求各个位置的速度的散度，通过速度的散度更新压强，根据压强的梯度对流体进行加速以更新流体的速度
+
 $$
 \nabla\cdot\nabla p =\frac{\rho}{\Delta t}\nabla\cdot u\\
 \nabla\cdot求散度\\
@@ -331,6 +338,7 @@ $$
 ###### divergence
 
 根据速度场计算每个位置的速度散度 divergence 函数为求速度的散度，公式如下
+
 $$
 (\frac{\rho}{\Delta t}\nabla\cdot u)_{ij}=\frac{\rho}{2\Delta t\Delta x}(u^x_{i+1,j}-u^x_{i-1,j}+u^y_{i,j+1}-u^y_{i,j-1})
 $$
@@ -358,6 +366,7 @@ def divergence(vf: ti.template()):
 ###### pressure_jacobi
 
 根据速度的散度更新各个位置的压力，多次迭代贴近平衡状态 pressure_jacobi 函数为从速度的散度对压强进行更新，公式如下
+
 $$
 \begin{align}
 (\nabla\cdot\nabla p)_{i,j}&=\frac{1}{\Delta x^2}(-4p_{i,j}+p_{i+1,j}+p_{i-1,j}+p_{i,j+1}+p_{i,j-1})\\
@@ -381,6 +390,7 @@ def pressure_jacobi(pf: ti.template(), new_pf: ti.template()):
 ###### subtract_gradient
 
 压强差会对流体施加力，使流体具有加速度，使用加速度来更新流体的速度 subtract_gradient 函数为使用梯度来更新速度，公式如下
+
 $$
 \begin{align}
 \frac{\partial u}{\partial t}=-\frac{\Delta p}{\rho}\\
